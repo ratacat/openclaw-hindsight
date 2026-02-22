@@ -1,0 +1,67 @@
+{
+  "id": "openclaw-hindsight",
+  "kind": "memory",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "baseUrl": {
+        "type": "string",
+        "default": "http://localhost:8888",
+        "description": "Hindsight API base URL"
+      },
+      "bankId": {
+        "type": "string",
+        "default": "default",
+        "description": "Hindsight memory bank ID"
+      },
+      "retainOnWrite": {
+        "type": "boolean",
+        "default": true,
+        "description": "Auto-retain when memory files change"
+      },
+      "retainDebounceMs": {
+        "type": "number",
+        "default": 30000,
+        "description": "Debounce interval for file watcher (ms)"
+      },
+      "recallBudget": {
+        "type": "string",
+        "enum": ["low", "mid", "high"],
+        "default": "mid",
+        "description": "Hindsight recall budget level"
+      },
+      "maxTokens": {
+        "type": "number",
+        "default": 4096,
+        "description": "Max tokens for recall results"
+      },
+      "fallbackToLocal": {
+        "type": "boolean",
+        "default": true,
+        "description": "Fall back to local grep if Hindsight is down"
+      },
+      "reflectEnabled": {
+        "type": "boolean",
+        "default": true,
+        "description": "Expose memory_reflect tool"
+      },
+      "autoRecall": {
+        "type": "boolean",
+        "default": false,
+        "description": "Auto-inject relevant memories before agent starts"
+      },
+      "autoRetain": {
+        "type": "boolean",
+        "default": true,
+        "description": "Auto-retain conversation content after agent ends"
+      }
+    }
+  },
+  "uiHints": {
+    "baseUrl": { "label": "Hindsight URL", "placeholder": "http://localhost:8888" },
+    "bankId": { "label": "Memory Bank ID", "placeholder": "sapphira" },
+    "recallBudget": { "label": "Recall Budget" },
+    "maxTokens": { "label": "Max Recall Tokens" }
+  }
+}
