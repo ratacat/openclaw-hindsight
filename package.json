@@ -1,0 +1,37 @@
+{
+  "name": "openclaw-hindsight",
+  "version": "0.1.0",
+  "description": "OpenClaw memory extension powered by Hindsight — fact-centric knowledge graph with entity resolution, temporal reasoning, and reflection.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest",
+    "migrate": "tsx scripts/migrate.ts",
+    "lint": "eslint src/"
+  },
+  "keywords": [
+    "openclaw",
+    "hindsight",
+    "memory",
+    "agent",
+    "knowledge-graph"
+  ],
+  "author": "Jared Smith",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jaredsmith/openclaw-hindsight.git"
+  },
+  "dependencies": {
+    "@vectorize-io/hindsight-client": "latest"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0",
+    "tsx": "^4.0.0",
+    "vitest": "^3.0.0",
+    "@types/node": "^22.0.0"
+  }
+}
