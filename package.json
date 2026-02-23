@@ -21,6 +21,9 @@
   ],
   "author": "Jared Smith",
   "license": "MIT",
+  "openclaw": {
+    "extensions": ["dist/index.js"]
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/jaredsmith/openclaw-hindsight.git"

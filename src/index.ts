@@ -35,11 +35,19 @@ class FileWatcher {
     this.abortController = new AbortController();
     const signal = this.abortController.signal;
 
-    // Watch MEMORY.md
-    this.watchFile(join(this.workspacePath, 'MEMORY.md'), signal);
+    // Watch MEMORY.md (only if it exists)
+    const { stat } = await import('node:fs/promises');
+    stat(join(this.workspacePath, 'MEMORY.md'))
+      .then(() => this.watchFile(join(this.workspacePath, 'MEMORY.md'), signal))
+      .catch(() => this.logger.info('openclaw-hindsight: MEMORY.md not found, skipping watch (will be picked up by directory watcher if created)'));
 
     // Watch memory/ directory
-    this.watchDir(join(this.workspacePath, 'memory'), signal);
+    stat(join(this.workspacePath, 'memory'))
+      .then(() => this.watchDir(join(this.workspacePath, 'memory'), signal))
+      .catch(() => this.logger.warn('openclaw-hindsight: memory/ directory not found, skipping watch'));
+
+    // Also watch workspace root for MEMORY.md creation
+    this.watchDir(this.workspacePath, signal);
   }
 
   stop(): void {
@@ -66,9 +74,13 @@ class FileWatcher {
 
   private async watchDir(dirPath: string, signal: AbortSignal): Promise<void> {
     try {
-      const watcher = watch(dirPath, { signal, recursive: false });
+      const watcher = watch(dirPath, { signal, recursive: true });
       for await (const event of watcher) {
-        if (event.filename?.endsWith('.md')) {
+        if (event.filename?.endsWith('.md') && (
+          event.filename === 'MEMORY.md' ||
+          event.filename.startsWith('memory/') ||
+          event.filename.match(/^memory[\\/]/)
+        )) {
           this.scheduleRetain(join(dirPath, event.filename));
         }
       }
@@ -115,7 +127,11 @@ const hindsightPlugin = {
 
   register(api: OpenClawPluginApi) {
     const cfg = getConfig(api.pluginConfig as Partial<HindsightConfig>);
-    const workspacePath = api.resolvePath('.');
+    // api.resolvePath('.') may resolve to plugin root, not workspace.
+    // Fall back to known workspace path or HOME-based default.
+    const workspacePath = process.env.OPENCLAW_WORKSPACE
+      || (api.pluginConfig as any)?.workspacePath
+      || join(process.env.HOME || '/root', '.openclaw', 'workspace');
 
     api.logger.info(
       `openclaw-hindsight: registered (url: ${cfg.baseUrl}, bank: ${cfg.bankId})`,
