@@ -26,12 +26,14 @@
     "url": "https://github.com/jaredsmith/openclaw-hindsight.git"
   },
   "dependencies": {
-    "@vectorize-io/hindsight-client": "latest"
+    "@sinclair/typebox": "^0.34.48",
+    "@vectorize-io/hindsight-client": "latest",
+    "openclaw": "^2026.2.21-2"
   },
   "devDependencies": {
-    "typescript": "^5.7.0",
+    "@types/node": "^22.0.0",
     "tsx": "^4.0.0",
-    "vitest": "^3.0.0",
-    "@types/node": "^22.0.0"
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0"
   }
 }

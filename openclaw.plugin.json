@@ -7,54 +7,44 @@
     "properties": {
       "baseUrl": {
         "type": "string",
-        "default": "http://localhost:8888",
-        "description": "Hindsight API base URL"
+        "default": "http://localhost:8888"
       },
       "bankId": {
         "type": "string",
-        "default": "default",
-        "description": "Hindsight memory bank ID"
+        "default": "sapphira"
       },
       "retainOnWrite": {
         "type": "boolean",
-        "default": true,
-        "description": "Auto-retain when memory files change"
+        "default": true
       },
       "retainDebounceMs": {
         "type": "number",
-        "default": 30000,
-        "description": "Debounce interval for file watcher (ms)"
+        "default": 30000
       },
       "recallBudget": {
         "type": "string",
         "enum": ["low", "mid", "high"],
-        "default": "mid",
-        "description": "Hindsight recall budget level"
+        "default": "mid"
       },
       "maxTokens": {
         "type": "number",
-        "default": 4096,
-        "description": "Max tokens for recall results"
+        "default": 4096
       },
       "fallbackToLocal": {
         "type": "boolean",
-        "default": true,
-        "description": "Fall back to local grep if Hindsight is down"
+        "default": true
       },
       "reflectEnabled": {
         "type": "boolean",
-        "default": true,
-        "description": "Expose memory_reflect tool"
+        "default": true
       },
       "autoRecall": {
         "type": "boolean",
-        "default": false,
-        "description": "Auto-inject relevant memories before agent starts"
+        "default": false
       },
       "autoRetain": {
         "type": "boolean",
-        "default": true,
-        "description": "Auto-retain conversation content after agent ends"
+        "default": true
       }
     }
   },
